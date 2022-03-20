@@ -25,9 +25,8 @@ const PINCH_OUT = "exit";
 
 const mongoUrl = process.env.MONGO_URL;
 const port = process.env.PORT || 5000;
-const DATA_BASE = "emoployeePunchTime";
 
-const { employeeSchema, find } = require("./modules/Employee");
+const { employeeSchema } = require("./modules/Employee");
 const { shiftSchema } = require("./modules/Shift");
 const { enteranceSchema } = require("./modules/Enterance");
 
@@ -82,25 +81,6 @@ async function create_employee(id, name) {
       console.log("Employee was saved: ", upddateEmployee)
     );
 }
-
-// async function create_employee_with_shift(id, name) {
-//   const connection = await getConnection();
-//   const Employee = connection.model("Employee", employeeSchema);
-//   const newEmployee = new Employee({
-//     id: id,
-//     name: name,
-//     shifts: [
-//       "61e0b14a7fdbdedec3e5d16c",
-//       "61e0b45aa268e27a3638f458",
-//       "61e0b4c635b428e95bcb3648",
-//     ],
-//   });
-//   newEmployee
-//     .save()
-//     .then((upddateEmployee) =>
-//       console.log("Employee was saved: ", upddateEmployee)
-//     );
-// }
 
 // *********
 // create action enter/exit shift
