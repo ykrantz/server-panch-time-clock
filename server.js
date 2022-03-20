@@ -26,6 +26,7 @@ const { MONGO_USER } = require("./secret");
 const { MONGO_KEY } = require("./secret");
 
 const MONGO_URL = require("./secret");
+console.log("^^^^", MONGO_URL);
 
 const DATA_BASE = "emoployeePunchTime";
 
@@ -66,8 +67,12 @@ const port = 5004;
 
 async function getConnection() {
   try {
+    console.log("$$$$", { MONGO_URL });
     return await mongoose.connect(
+      // MONGO_URL
+      // `${MONGO_URL}`
       `mongodb+srv://${MONGO_USER}:${MONGO_KEY}@cluster0.sqgja.mongodb.net/${DATA_BASE}?retryWrites=true&w=majority`
+      // `mongodb+srv://ykrantz:Shchemmb22@cluster0.sqgja.mongodb.net/emoployeePunchTime?retryWrites=true&w=majority`
     );
   } catch (e) {
     console.log(e);
@@ -78,6 +83,7 @@ async function getConnection() {
 // *********
 async function create_employee(id, name) {
   const connection = await getConnection();
+  console.log("%%%", "conect");
   // const Employee = connection.model("Employee", { id: String, name: String });
   const Employee = connection.model("Employee", employeeSchema);
   const newEmployee = new Employee({ id: id, name: name, shifts: [] });
