@@ -23,8 +23,8 @@ require("dotenv").config();
 const PINCH_IN = "enter";
 const PINCH_OUT = "exit";
 
-const MONGO_URL = process.env.MONGO_URL;
-
+const mongoUrl = process.env.MONGO_URL;
+const port = process.env.PORT || 5000;
 const DATA_BASE = "emoployeePunchTime";
 
 const { employeeSchema, find } = require("./modules/Employee");
@@ -44,8 +44,6 @@ app.use(cors());
 
 const mongoose = require("mongoose");
 
-const port = 5004;
-
 // **********
 
 // **********
@@ -64,11 +62,7 @@ const port = 5004;
 
 async function getConnection() {
   try {
-    // console.log("$$$$", { MONGO_URL });
-    return await mongoose.connect(MONGO_URL);
-
-    // MONGO_URL
-    // `${MONGO_URL}`
+    return await mongoose.connect(mongoUrl);
   } catch (e) {
     console.log(e);
   }
@@ -89,24 +83,24 @@ async function create_employee(id, name) {
     );
 }
 
-async function create_employee_with_shift(id, name) {
-  const connection = await getConnection();
-  const Employee = connection.model("Employee", employeeSchema);
-  const newEmployee = new Employee({
-    id: id,
-    name: name,
-    shifts: [
-      "61e0b14a7fdbdedec3e5d16c",
-      "61e0b45aa268e27a3638f458",
-      "61e0b4c635b428e95bcb3648",
-    ],
-  });
-  newEmployee
-    .save()
-    .then((upddateEmployee) =>
-      console.log("Employee was saved: ", upddateEmployee)
-    );
-}
+// async function create_employee_with_shift(id, name) {
+//   const connection = await getConnection();
+//   const Employee = connection.model("Employee", employeeSchema);
+//   const newEmployee = new Employee({
+//     id: id,
+//     name: name,
+//     shifts: [
+//       "61e0b14a7fdbdedec3e5d16c",
+//       "61e0b45aa268e27a3638f458",
+//       "61e0b4c635b428e95bcb3648",
+//     ],
+//   });
+//   newEmployee
+//     .save()
+//     .then((upddateEmployee) =>
+//       console.log("Employee was saved: ", upddateEmployee)
+//     );
+// }
 
 // *********
 // create action enter/exit shift
