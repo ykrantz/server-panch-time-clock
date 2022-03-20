@@ -19,14 +19,11 @@
 // **********
 // Level 10: defining main variable and structre
 // **********
-
+require("dotenv").config();
 const PINCH_IN = "enter";
 const PINCH_OUT = "exit";
-const { MONGO_USER } = require("./secret");
-const { MONGO_KEY } = require("./secret");
 
-const MONGO_URL = require("./secret");
-console.log("^^^^", MONGO_URL);
+const MONGO_URL = process.env.MONGO_URL;
 
 const DATA_BASE = "emoployeePunchTime";
 
@@ -67,13 +64,11 @@ const port = 5004;
 
 async function getConnection() {
   try {
-    console.log("$$$$", { MONGO_URL });
-    return await mongoose.connect(
-      // MONGO_URL
-      // `${MONGO_URL}`
-      `mongodb+srv://${MONGO_USER}:${MONGO_KEY}@cluster0.sqgja.mongodb.net/${DATA_BASE}?retryWrites=true&w=majority`
-      // `mongodb+srv://ykrantz:Shchemmb22@cluster0.sqgja.mongodb.net/emoployeePunchTime?retryWrites=true&w=majority`
-    );
+    // console.log("$$$$", { MONGO_URL });
+    return await mongoose.connect(MONGO_URL);
+
+    // MONGO_URL
+    // `${MONGO_URL}`
   } catch (e) {
     console.log(e);
   }
